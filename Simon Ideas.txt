@@ -1,0 +1,3 @@
+- Store the colors as numbers in map
+- Create random sequences of numbers
+- Check if the user matched the sequence of numbers

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Simon</string>
+    <string name="displayName"> Simon! </string>
+    <string name="timerBox">Time: --</string>
+    <string name="highScore">High Score: </string>
+    <string name="scoreName"> Score: 0 </string>
+    <string name="resultName">---------</string>
+    <string name="click_button">Start</string>
+    <string name="reset_button">Reset</string>
+    <string name="next_button">Next</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="scoreText">Score: 0</string>
+</resources>
