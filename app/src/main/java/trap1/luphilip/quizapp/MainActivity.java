@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Field instantiation
     Button startButton;
     Button resetButton;
     Button nextButton;
@@ -29,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private int count = 0;
     private String correct = "";
     private String userSequence = "";
-    private String correctHolder = "";
     private static int score = 0;
     private char temp;
-    private boolean next = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //assigning widgets
         mPreferences = getSharedPreferences("trap1.luphilip.quizapp.sharedprefs", MODE_PRIVATE);
         resetButton = findViewById(R.id.resetButton);
         startButton = findViewById(R.id.clickButton);
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setEnabled(false);
         boardToggle(false);
 
+        //START
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //NEXT
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 nextButton.setEnabled(false);
                 countDownTimer.cancel();
                 hintTimer.cancel();
-                if (check(userSequence, correct)) {
+                if (check(userSequence, correct)) { // If user got the correct sequence
                     count = 0;
                     score++;
                     scoreText.setText(String.format("Score: %s", score));
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     displayText.setText("Correct!");
                     cancelTimers();
                     countDownTimer2.start();
-                } else {
+                } else {                            // If user is wrong
                     displayText.setText("Incorrect!");
                     cancelTimers();
                     Intent intent = new Intent(MainActivity.this, GameOver.class);
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //RESET
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,11 +125,12 @@ public class MainActivity extends AppCompatActivity {
                 correct = "";
                 userSequence = "";
                 count = 0;
-                next = false;
             }
         });
 
 
+
+        //COLOR BUTTONS
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    ///Helper methods
     public static int getScore() {
         return score;
     }
@@ -185,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
         countDownTimer2.cancel();
     }
 
+
+    //Main timer
     CountDownTimer countDownTimer = new CountDownTimer(11000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -201,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Buffer between rounds
     CountDownTimer countDownTimer2 = new CountDownTimer(3000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -209,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            next = false;
             randomNum = (int) (Math.random() * 4 + 1);
             count = 0;
             correct += randomNum;
@@ -219,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Color sequence display
     CountDownTimer colorTimer = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -294,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //delay for the hint
     CountDownTimer hintTimer = new CountDownTimer(2000, 10000) {
         @Override
         public void onTick(long millisUntilFinished) {
